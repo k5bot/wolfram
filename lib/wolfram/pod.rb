@@ -14,7 +14,7 @@ module Wolfram
     def initialize(xml, options = {})
       @query = options[:query]
       @xml = Nokogiri::XML(xml.to_s).search('pod').first
-      @subpods = Subpod.collection(@xml.search('subpod'), options)
+      @subpods = Subpod.collection(@xml, options)
       @states = State.collection(@xml.search('states'), options)
       @xml or raise MissingNodeError, "<pod> node missing from xml: #{xml[0..20]}..."
       types.each {|type| extend type}
